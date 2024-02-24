@@ -205,7 +205,7 @@
                 $('#listCategories').append(
                     `<option value="">Choose</option>`
                 );
-            });
+            })
 
 
             $('#create-submit').click(function (event) {
