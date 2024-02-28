@@ -6,8 +6,7 @@
 @include('admin.product.edit')
 @include('admin.product.assign')
 
-<button class="m-3 btn btn-success btn-create" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
-<button class="m-3 btn btn-success btn-assign" data-bs-toggle="modal" data-bs-target="#assignModal">Assign</button>
+<button class="mb-2 btn btn-success btn-create" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
 
 
     <div class="card">
@@ -70,8 +69,6 @@
 
                     $('#createModal').modal('hide');
                     loadTable();
-
-
                     let name = $('#name').val('');
                     $('#description').val('');
                     $('#price').val('');
@@ -91,8 +88,38 @@
                 }
             });
         }
-        function updateProduct(){
+        function updateProduct(formData){
+            $.ajax({
+                type: "POST",
+                url: "{{route('product.update')}}",
+                data: formData,
+                dataType: "json",
+                processData: false,
+                contentType: false,
 
+                success: function (response) {
+                    $('#editModal').modal('hide');
+                    loadTable();
+                    $('#prductId').val('');
+                    $('#editName').val('');
+                    $('#editDescription').val('');
+                    $('#editPrice').val('');
+                    $('#editQuantity').val('');
+                    $('#listCategoriesEdit').val('');
+                    $('#editImageInput').val('');
+                },
+                error: function(response) {
+                    $('#editModal').modal('hide');
+                    $('#prductId').val('');
+                    $('#editName').val('');
+                    $('#editDescription').val('');
+                    $('#editPrice').val('');
+                    $('#editQuantity').val('');
+                    $('#listCategoriesEdit').val('');
+                    $('#editImageInput').val('');
+
+                }
+            });
         }
 
         function deleteProduct(productId){
@@ -112,18 +139,15 @@
             });
         }
 
-        function assignProduct(){
 
-        }
-
-        function loadSubcategories(){
+        function loadSubcategories(list){
             $.ajax({
                 type: "GET",
                 url: "{{route('subcategory.fetch')}}",
                 dataType: "json",
                 success: function (response) {
                     response.forEach(subcategory => {
-                        $('#listCategories').append(
+                        $(`#${list}`).append(
                             `<option value="${subcategory.id}">${subcategory.name}</option>`
                         );
                     });
@@ -144,7 +168,7 @@
                             <td>${product.id}</td>
                             <td><img src="{{ asset('') }}${product.image}" alt="Product Image" width="100"></td>
                             <td>${product.name}</td>
-                            <td>${product.description}</td>
+                            <td >${product.description}</td>
                             <td>${product.price}</td>
                             <td>${product.quantity}</td>
                             <td>${product.subcategory.name}</td>
@@ -165,8 +189,7 @@
             loadTable();
 
             $('.btn-create').click(function() {
-                loadSubcategories()
-                $('#createModal').modal('show');
+                loadSubcategories('listCategories')
             });
 
             $('.btn-assign').click(function() {
@@ -175,6 +198,8 @@
 
             $(document).on('click', '.edit-btn', function() {
                 $('#editModal').modal('show');
+                loadSubcategories('listCategoriesEdit')
+
                 var productId = $(this).data('id');
                 var productName = $(this).data('name');
                 var productDescription = $(this).data('description');
@@ -187,7 +212,8 @@
                 $('#editDescription').val(productDescription);
                 $('#editPrice').val(productPrice);
                 $('#editQuantity').val(productQuantity);
-                $('#editImage').attr('src', `{{asset('images/${productImage}')}}`);
+                $('#editImageView').attr('src', `{{asset('${productImage}')}}`);
+
 
             });
 
@@ -203,6 +229,13 @@
             $("#createModal").on("hidden.bs.modal", function() {
                 $("#listCategories").empty();
                 $('#listCategories').append(
+                    `<option value="">Choose</option>`
+                );
+            })
+
+            $("#editModal").on("hidden.bs.modal", function() {
+                $("#listCategoriesEdit").empty();
+                $('#listCategoriesEdit').append(
                     `<option value="">Choose</option>`
                 );
             })
@@ -232,6 +265,35 @@
                 createProduct(formData);
             });
 
+            $("#edit-submit").click(function(event) {
+                event.preventDefault();
+
+                let id = $('#productId').val();
+                let name = $('#editName').val();
+                let description = $('#editDescription').val();
+                let price = $('#editPrice').val();
+                let quantity = $('#editQuantity').val();
+                let subcategory = $('#listCategoriesEdit').val();
+
+                let image = $('#editImageInput').prop('files')[0];
+
+                let formData = new FormData();
+                formData.append('id', id);
+                formData.append('name', name);
+                formData.append('description', description);
+                formData.append('price', price);
+                formData.append('quantity', quantity);
+                if (image) {
+                    formData.append('image', image);
+                }
+                if (subcategory) {
+                    formData.append('subcategory_id', subcategory);
+                }
+                let csrfToken = $('meta[name="csrf-token"]').attr('content');
+                formData.append('_token', csrfToken);
+
+                updateProduct(formData);
+            });
         });
     </script>
 @endpush

@@ -9,14 +9,17 @@
             </div>
             <div class="modal-body">
                 <form id="createForm">
-                    <div class="mb-3">
+                    <div class="mb-2">
                         <label for="createInputName" class="form-label">Name</label>
                         <input type="text" class="form-control" id="createInputName" name="name">
                     </div>
-                    <label for="listCategoriesCreate">List Categories</label>
-                    <select class="form-control m-2" id="listCategoriesCreate" name="category_id">
-                        <option value="">Choose</option>
-                    </select>
+
+                    <div class="mb-2">
+                        <label for="listCategoriesCreate">List Categories</label>
+                        <select class="form-control " id="listCategoriesCreate" name="category_id">
+                            <option value="">Choose</option>
+                        </select>
+                    </div>
 
                     <button type="submit" class="btn btn-primary" id="create-submit">Submit</button>
                 </form>

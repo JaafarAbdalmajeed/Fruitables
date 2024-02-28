@@ -31,12 +31,16 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::get('/product/index', [ProductController::class, 'index'])->name('product.index');
     Route::get('/product/fetch', [ProductController::class, 'fetchData'])->name('product.fetch');
     Route::post('/product/create', [ProductController::class, 'create'])->name('product.create');
-    Route::put('/product/edit', [ProductController::class, 'update'])->name('product.update');
+    Route::post('/product/update', [ProductController::class, 'update'])->name('product.update');
     Route::delete('/product/delete', [ProductController::class, 'destroy'])->name('product.delete');
     Route::post('/product/assign', [ProductController::class, 'assign'])->name('product.assign');
 
 
     // User Routes
     Route::get('/admin/user/index', [UserController::class, 'index'])->name('admin.user.index');
+    Route::get('/admin/user/fetch', [UserController::class, 'fetchData'])->name('admin.user.fetch');
+    Route::post('/admin/user/create', [UserController::class, 'create'])->name('admin.user.create');
+    Route::post('/admin/user/update', [UserController::class, 'update'])->name('admin.user.update');
+    Route::delete('/admin/user/delete', [UserController::class, 'destroy'])->name('admin.user.delete');
 
 });

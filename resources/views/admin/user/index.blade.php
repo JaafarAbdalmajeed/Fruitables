@@ -1,67 +1,214 @@
 @extends('layouts.admin')
 
-
 @section('content')
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Responsive Hover Table</h3>
 
-                <div class="card-tools">
-                  <div class="input-group input-group-sm" style="width: 150px;">
-                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+@include('admin.user.create')
+@include('admin.user.edit')
+@include('admin.user.assign')
+
+<button class="mb-2 btn btn-success btn-create" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Users</h3>
+
+            <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" id="searchInput" class="form-control float-right" placeholder="Search">
 
                     <div class="input-group-append">
-                      <button type="submit" class="btn btn-default">
-                        <i class="fas fa-search"></i>
-                      </button>
+                        <button type="button" id="searchBtn" class="btn btn-default">
+                            <i class="fas fa-search"></i>
+                        </button>
                     </div>
-                  </div>
                 </div>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>User</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Reason</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>183</td>
-                      <td>John Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-success">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>219</td>
-                      <td>Alexander Pierce</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-warning">Pending</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>657</td>
-                      <td>Bob Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-primary">Approved</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                    <tr>
-                      <td>175</td>
-                      <td>Mike Doe</td>
-                      <td>11-7-2014</td>
-                      <td><span class="tag tag-danger">Denied</span></td>
-                      <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
             </div>
+        </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap" id="productTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Deleted At</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function loadTable(){
+            $.ajax({
+                type: "GET",
+                url: "{{route('admin.user.fetch')}}",
+
+                dataType: "json",
+                success: function (response) {
+                    table = ''
+                    response.forEach(user => {
+                        table += `
+                        <tr>
+                            <td>${user.id}</td>
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>${user.role}</td>
+                            <td>${user.created_at}</td>
+                            <td>${user.updated_at}</td>
+                            <td>${user.deleted_at}</td>
+                            <td><button class="btn btn-primary" data-bs-toggle='modal' data-bs-target='#editModal' id="btn-edit" data-id=${user.id} data-name=${user.name} data-email=${user.email} data-role=${user.role}>Edit</button></td>
+                            <td><button class="btn btn-danger" id="btn-delete" data-id="${user.id}">Delete</button></td>
+                        </tr>
+                        `;
+                        $("table tbody").html(table);
+                    });
+                }
+            });
+        }
+
+        function createUser(formDate) {
+            $.ajax({
+                type: "POST",
+                url: "{{route('admin.user.create')}}",
+                data: formDate,
+                processData: false,
+                contentType: false,
+
+                dataType: "json",
+                success: function (response) {
+                    loadTable();
+                    $('#createModel').modal('hide');
+                    $("#name").val('');
+                    $("#email").val('');
+                    $("#role").val('');
+                    $("#password").val('');
+                    $("#password-repeat").val('');
+
+                    resetCreateForm()
+                }
+            });
+        }
+
+        function updateUser(formDate) {
+            $.ajax({
+                type: "POST",
+                url: "{{route('admin.user.update')}}",
+                data: formDate,
+                processData: false,
+                contentType: false,
+
+                dataType: "json",
+                success: function (response) {
+                    loadTable();
+                    $('#editModel').modal('hide');
+                    resetCreateForm()
+                    $("#editId").val('');
+                    $("#editName").val('');
+                    $("#editEmail").val('');
+                    $("#editRole").val('');
+
+                }
+            });
+        }
+
+        function deleteUser(id) {
+            $.ajax({
+                type: "DELETE",
+                url: "{{route('admin.user.delete')}}",
+                data: {
+                    id:id,
+                },
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+
+                dataType: "json",
+                success: function (response) {
+                    loadTable()
+                }
+            });
+        }
+
+        function resetCreateForm() {
+            $('#name').val('');
+            $('#description').val('');
+            $('#price').val('');
+            $('#quantity').val('');
+            $('#image').val('');
+            $('#listCategories').val('');
+        }
+
+
+        $(document).ready(function () {
+            loadTable()
+            $("#create-submit").on("click", function (event) {
+                event.preventDefault();
+                let name = $("#name").val();
+                let email = $("#email").val();
+                let role = $("#role").val();
+                let password = $("#password").val();
+                let passwordRepeat = $("#password-repeat").val();
+
+                let formData = new FormData()
+                formData.append('name', name);
+                formData.append('email', email);
+                formData.append('role', role);
+                formData.append('password', password);
+                formData.append('passwordRepeat', passwordRepeat);
+                let csrfToken = $('meta[name="csrf-token"]').attr('content');
+                formData.append('_token', csrfToken);
+
+                createUser(formData);
+            });
+
+
+
+            $(document).on("click", "#btn-edit", function () {
+                let id = $(this).data("id");
+                let name = $(this).data("name");
+                let email = $(this).data("email");
+                let role = $(this).data("role");
+                $("#editId").val(id);
+                $("#editName").val(name);
+                $("#editEmail").val(email);
+                $("#editRole").val(role);
+            });
+
+            $(document).on("click", "#btn-delete" ,function() {
+                let id = $(this).data("id");
+                deleteUser(id);
+            })
+
+            $("#edit-submit").click(function(event){
+                event.preventDefault();
+                let id = $("#editId").val();
+                let name = $("#editName").val();
+                let email = $("#editEmail").val();
+                let role = $("#editRole").val();
+                let formData = new FormData()
+                formData.append('id', id);
+                formData.append('name', name);
+                formData.append('email', email);
+                formData.append('role', role);
+                let csrfToken = $('meta[name="csrf-token"]').attr('content');
+                formData.append('_token', csrfToken);
+                updateUser(formData);
+            })
+
+        });
+    </script>
+@endpush

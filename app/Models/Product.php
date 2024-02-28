@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,9 +16,16 @@ class Product extends Model
     protected $fillable = [
         'name', 'description', 'image', 'price', 'quantity', 'subcategory_id',
     ];
+
     public function subcategory()
     {
         return $this->belongsTo(Subcategory::class);
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
 
 }

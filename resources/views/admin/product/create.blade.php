@@ -16,7 +16,7 @@
 
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea type="text" class="form-control" id="description" name="description" maxlength="10"></textarea>
+                        <textarea type="text" class="form-control" id="description" name="description" rows="8" cols="20"></textarea>
                     </div>
 
                     <div class="mb-3">
@@ -29,16 +29,18 @@
                         <input type="number" class="form-control" id="quantity" name="quantity">
                     </div>
 
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Image</label>
-                        <input class="form-control form-control-lg" id="image" name="image" type="file">
-                    </div>
 
                     <div class="mb-3">
                         <label for="listCategories">List Categories</label>
                         <select class="form-control " id="listCategories" name="category_id">
                             <option value="">Choose</option>
                         </select>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input class="form-control form-control-lg" id="image" name="image" type="file">
                     </div>
 
                     <button type="submit" class="btn btn-primary" id="create-submit">Submit</button>

@@ -7,8 +7,8 @@
 @include('admin.subcategory.edit')
 @include('admin.subcategory.assign')
 
-<button class="m-3 btn btn-success btn-create" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
-<button class="m-3 btn btn-success btn-assign" data-bs-toggle="modal" data-bs-target="#assignModal">Assign</button>
+<button class="mb-2 btn btn-success btn-create" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
+<button class="mb-2 btn btn-success btn-assign" data-bs-toggle="modal" data-bs-target="#assignModal">Assign</button>
 
 <div class="card">
     <div class="card-header">

@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <form id="editForm">
-                    <input type="hidden" id="prductId">
+                    <input type="hidden" id="productId">
 
                     <div class="mb-3">
                         <label for="editName" class="form-label">Name</label>
@@ -31,21 +31,23 @@
                         <input type="number" class="form-control" id="editQuantity" name="quantity">
                     </div>
 
-                    <div class="mb-3">
-                        <label for="editImage" class="form-label">Image</label>
-                        <input class="form-control form-control-lg" id="editImage" name="image" type="file">
-                    </div>
 
                     <div class="mb-3">
-                        <label for="listCategoriesCreate">List Categories</label>
-                        <select class="form-control " id="listCategoriesCreate" name="category_id">
+                        <label for="listCategoriesEdit">List Categories</label>
+                        <select class="form-control " id="listCategoriesEdit" name="category_id">
                             <option value="">Choose</option>
                         </select>
-                        <div>
-                            <img id="editImage" src="" alt="Product Image" width="100">
+                    </div>
 
+                    <div class="mb-3">
+                        <label for="editImageInput" class="form-label">Image</label>
+                        <input class="form-control form-control-lg" id="editImageInput" name="image" type="file">
+                        <div class="m-1">
+                            <img id="editImageView" src="" alt="Product Image" width="70">
                         </div>
                     </div>
+
+
 
                     <button type="submit" class="btn btn-primary" id="edit-submit">Submit</button>
                 </form>

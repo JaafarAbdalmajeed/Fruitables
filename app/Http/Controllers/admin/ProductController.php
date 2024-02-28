@@ -42,10 +42,29 @@ class ProductController extends Controller
         return response()->json(['message' => 'Product created successfully'], 201);
     }
 
+
     public function update(Request $request)
     {
-
+        $product = Product::find($request->id);
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        if ($request->has('subcategory_id')) {
+            $product->subcategory_id = $request->subcategory_id;
+        }
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $imagePath = 'images/'.$imageName;
+            $product->image = $imagePath;
+        }
+            $product->save();
+        return response()->json(['message' => 'Product updated successfully'], 200);
     }
+
+
 
     public function destroy(Request $request)
     {

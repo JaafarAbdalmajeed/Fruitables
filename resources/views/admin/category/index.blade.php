@@ -6,7 +6,7 @@
 @include('admin.category.create')
 @include('admin.category.edit')
 
-<button class="m-3 btn btn-success btn-create" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
+<button class="mb-2 btn btn-success btn-create" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
 
 <div class="card">
     <div class="card-header">
@@ -118,9 +118,6 @@
     $(document).ready(function() {
         loadTable();
 
-        $(document).on('click', '.btn-create', function(event) {
-            $("#createModal").modal("show");
-        });
 
         $(document).on('click', '.btn-edit', function() {
             var categoryId = $(this).data('id');
@@ -145,10 +142,13 @@
                 },
                 success: function(response) {
                     loadTable();
+                    $('#createInputName').val('');
                     console.log(response);
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     console.error(xhr.responseText);
+                    $('#createInputName').val('');
+
                 }
             });
         });

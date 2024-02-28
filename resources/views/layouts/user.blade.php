@@ -7,6 +7,8 @@
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="" name="keywords">
         <meta content="" name="description">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,6 +29,40 @@
 
         <!-- Template Stylesheet -->
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+
+        <style>
+            .fruite-img {
+                width: 100%;
+                height: 18em;
+                overflow: hidden;
+            }
+            .fruite-img img {
+                width: 100%;
+                height: 100%;
+            }
+            /* .vegetables-img {
+                width: 50%;
+                height: 18em;
+                overflow: hidden;
+            }
+            .vegetables-img img {
+                width: 50%;
+                height: 100%;
+            } */
+
+            #FreshOrganicVegetables .vesitable-item {
+    max-width: 300px; /* Set a maximum width for each vegetable item */
+    margin: 0 auto; /* Center the vegetable items within the container */
+}
+
+#FreshOrganicVegetables .vesitable-img img {
+    max-width: 100%; /* Make sure the images don't exceed the width of their container */
+    height: auto; /* Maintain the aspect ratio of the images */
+}
+
+        </style>
+
+
     </head>
 
     <body>
@@ -50,6 +86,7 @@
 
     <!-- Template Javascript -->
     <script src="{{asset('assets/js/main.js')}}"></script>
+    @stack('scripts')
     </body>
 
 </html>
