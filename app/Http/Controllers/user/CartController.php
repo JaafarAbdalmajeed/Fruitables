@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
 
-    public function fetchData()
+    public function fetchItems()
     {
         $user = Auth::id();
         $cartItems = Cart::where('user_id', $user)->with('product')->get();
@@ -33,13 +33,26 @@ class CartController extends Controller
 
     }
 
-    public function removeItem()
+    // public function removeItem()
+    // {
+
+    // }
+
+    public function updateQuantity(Request $request)
     {
+        $cartItem = Cart::find($request->id);
+        $cartItem->quantity = $request->quantity;
+        $cartItem->save();
+        $user = Auth::id();
+        $cartItems = Cart::where('user_id', $user)->with('product')->get();
+
+
+        return response()->json([
+            'message' => 'Quantity updated successfully',
+            'quantity' => $cartItem->quantity,
+            'cartItems' => $cartItems
+        ], 200);
 
     }
 
-    public function updateQuantity()
-    {
-
-    }
 }

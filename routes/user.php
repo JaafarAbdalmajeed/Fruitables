@@ -35,10 +35,10 @@ Route::middleware(['auth'])->group(function(){
     Route::get('shop/related/product',[ShopDetailController::class, 'relatedProducts'])->name('products.related');
 
     // cart
-    Route::get('/cart/fetch', [CartController::class ,'fetchItems'])->name('cart.fetch');
+    Route::get('/cart/fetch', [CartController::class ,'fetchItems']);
     Route::post('/cart/add-item', [CartController::class ,'addItem'])->name('cart.addItem');
     Route::post('/cart/remove-item', [CartController::class ,'removeItem']);
-    Route::post('/cart/update-quantity', [CartController::class ,'updateQuantity']);
+    Route::post('/cart/update-quantity', [CartController::class ,'updateQuantity'])->name('cart.quantity');
 
 });
 
