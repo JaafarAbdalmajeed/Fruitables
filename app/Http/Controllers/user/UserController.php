@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\user;
 
-use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -46,6 +49,24 @@ class UserController extends Controller
     public function contact()
     {
         return view('user.pages.contact');
+    }
+
+    public function myOrder()
+    {
+        return view('user.pages.order');
+    }
+
+    public function orderItems()
+    {
+        $user = Auth::id();
+
+        $order = Order::where('user_id', $user)->first();
+        if ($order) {
+            $orderItems = OrderItem::where('order_id', $order->id)->with('product')->get();
+            return response()->json($orderItems);
+        } else {
+            return response()->json(['message' => 'No order found for the user'], 404);
+        }
     }
 
 }

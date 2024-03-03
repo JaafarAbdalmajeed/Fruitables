@@ -33,11 +33,6 @@ class CartController extends Controller
 
     }
 
-    // public function removeItem()
-    // {
-
-    // }
-
     public function updateQuantity(Request $request)
     {
         $cartItem = Cart::find($request->id);
@@ -55,4 +50,10 @@ class CartController extends Controller
 
     }
 
+    public function removeItem($id)
+    {
+        $item = Cart::findOrFail($id);
+        $item->delete();
+        return response()->json(['message' => 'Item deleted from cart successfully'], 200);
+    }
 }

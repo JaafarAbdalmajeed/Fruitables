@@ -36,7 +36,7 @@
                 <a href="{{route('category.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-th"></i>
                   <p>
-                    Categoro
+                    Categories
                     <span class="right badge badge-danger">New</span>
                   </p>
                 </a>
@@ -45,7 +45,7 @@
                 <a href="{{route('subcategory.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-th"></i>
                   <p>
-                    Subcategory
+                    Subcategories
                     <span class="right badge badge-danger">New</span>
                   </p>
                 </a>
@@ -54,7 +54,7 @@
                 <a href="{{route('product.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-th"></i>
                   <p>
-                    Product
+                    Products
                     <span class="right badge badge-danger">New</span>
                   </p>
                 </a>
@@ -63,11 +63,22 @@
                 <a href="{{route('admin.user.index')}}" class="nav-link">
                   <i class="nav-icon fas fa-th"></i>
                   <p>
-                    User
+                    Users
                     <span class="right badge badge-danger">New</span>
                   </p>
                 </a>
               </li>
+
+            <li class="nav-item">
+                <a href="{{route('admin.order.index')}}" class="nav-link">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Orders
+                    <span class="right badge badge-danger">New</span>
+                  </p>
+                </a>
+              </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

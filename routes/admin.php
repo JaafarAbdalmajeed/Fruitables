@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\SubcategoryController;
@@ -42,5 +43,19 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::post('/admin/user/create', [UserController::class, 'create'])->name('admin.user.create');
     Route::post('/admin/user/update', [UserController::class, 'update'])->name('admin.user.update');
     Route::delete('/admin/user/delete', [UserController::class, 'destroy'])->name('admin.user.delete');
+
+    //Order Routes
+    Route::get('/admin/order/index', [OrderController::class, 'index'])->name('admin.order.index');
+    Route::get('/admin/order/fetch', [OrderController::class, 'fetchData'])->name('order.fetch');
+    Route::post('/admin/order/create', [OrderController::class, 'create'])->name('order.create');
+    Route::post('/admin/order/update', [OrderController::class, 'update'])->name('order.update');
+    Route::delete('/admin/order/delete', [OrderController::class, 'destroy'])->name('order.delete');
+    Route::get('/admin/order/view-order-details/{id}', [OrderController::class, 'orderDetails']);
+    Route::post('/admin/order/update-state}', [OrderController::class, 'updateState'])->name('update.state');
+
+    Route::get('/admin/order/history/index', [OrderController::class, 'orderHistoryIndex'])->name('order.history.index');
+    Route::get('/admin/order/history/fetch', [OrderController::class, 'orderHistoryFetch'])->name('order.history.fetch');
+
+
 
 });

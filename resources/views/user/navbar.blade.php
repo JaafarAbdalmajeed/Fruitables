@@ -22,14 +22,15 @@
                 <div class="navbar-nav mx-auto">
                     <a href="{{route('user.index')}}" class="nav-item nav-link active">Home</a>
                     <a href="{{route('user.shop')}}" class="nav-item nav-link">Shop</a>
-                    <a href="{{route('user.shop_details')}}" class="nav-item nav-link">Shop Detail</a>
+                    {{-- <a href="{{route('user.shop_details')}}" class="nav-item nav-link">Shop Detail</a> --}}
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0 bg-secondary rounded-0">
                             <a href="{{route('user.cart')}}" class="dropdown-item">Cart</a>
                             <a href="{{route('user.checkout')}}" class="dropdown-item">Chackout</a>
-                            <a href="{{route('user.testimonial')}}" class="dropdown-item">Testimonial</a>
-                            <a href="{{route('user.404')}}" class="dropdown-item">404 Page</a>
+                            <a href="{{route('order.index')}}" class="dropdown-item">Order</a>
+                            {{-- <a href="{{route('user.testimonial')}}" class="dropdown-item">Testimonial</a> --}}
+                            {{-- <a href="{{route('user.404')}}" class="dropdown-item">404 Page</a> --}}
                         </div>
                     </div>
                     <a href="{{route('user.contact')}}" class="nav-item nav-link">Contact</a>
