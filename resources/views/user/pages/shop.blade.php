@@ -53,23 +53,13 @@
                                 </div>
                             </div>
                             <div class="col-6"></div>
-                            <div class="col-xl-3">
-                                <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                                    <label for="fruits">Default Sorting:</label>
-                                    <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-                                        <option value="volvo">Nothing</option>
-                                        <option value="saab">Popularity</option>
-                                        <option value="opel">Organic</option>
-                                        <option value="audi">Fantastic</option>
-                                    </select>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="row g-4">
                             <div class="col-lg-3">
                                 <div class="row g-4">
                                     <div class="col-lg-12">
-                                        <div class="mb-3">
+                                        <div class="mb-3 mt-3">
                                             <h4>Categories</h4>
                                             <ul class="list-unstyled fruite-categorie">
                                                 <li>
@@ -108,104 +98,8 @@
                                     <div class="col-lg-12">
                                         <div class="mb-3">
                                             <h4 class="mb-2">Price</h4>
-                                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="1" max="100" step="0.10" value="0" onchange="updatePriceDisplay(this.value)*10">
-                                            <output id="amount" name="amount"  ></output>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <h4>Additional</h4>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                                                <label for="Categories-1"> Organic</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                                                <label for="Categories-2"> Fresh</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                                                <label for="Categories-3"> Sales</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                                                <label for="Categories-4"> Discount</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                                                <label for="Categories-5"> Expired</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <h4 class="mb-3">Featured products</h4>
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="img/featur-1.jpg" class="img-fluid rounded" alt="">
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-2">Big Banana</h6>
-                                                <div class="d-flex mb-2">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="d-flex mb-2">
-                                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="img/featur-2.jpg" class="img-fluid rounded" alt="">
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-2">Big Banana</h6>
-                                                <div class="d-flex mb-2">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="d-flex mb-2">
-                                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-start">
-                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="img/featur-3.jpg" class="img-fluid rounded" alt="">
-                                            </div>
-                                            <div>
-                                                <h6 class="mb-2">Big Banana</h6>
-                                                <div class="d-flex mb-2">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="d-flex mb-2">
-                                                    <h5 class="fw-bold me-2">2.99 $</h5>
-                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex justify-content-center my-4">
-                                            <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="position-relative">
-                                            <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
-                                            <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
-                                                <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
-                                            </div>
+                                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="1" max="100" step="0.10" value="0" onchange="updatePriceDisplay(this.value)">
+                                            <output id="amount" name="amount">0</output>
                                         </div>
                                     </div>
                                 </div>
@@ -346,7 +240,7 @@
                                                         <img src="{{ asset('') }}${product.image}" class="img-fluid w-100 rounded-top" alt="">
                                                     </a>
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${product.subcategory.category.name}</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <a href="/shop/product/${product.id}">
                                                     <h4>${product.name}</h4>
@@ -460,57 +354,54 @@
         });
     }
 
-    function getProductsPrice(price) {
-        $.ajax({
-            type: "GET",
-            url: "{{route('price.products')}}", // Update the URL to point to your endpoint
-            data: { price: price },
-            success: function (response) {
-
-                    let products = response
-                    let productCards = ''; // Define productCards variable here
-                    products.forEach(product => {
-                        productCards += `
-                                        <div class="col-md-6 col-lg-6 col-xl-4">
-                                            <div class="rounded position-relative fruite-item">
-                                                <div class="fruite-img">
-                                                    <a href="/shop/product/${product.id}">
-                                                        <img src="{{ asset('') }}${product.image}" class="img-fluid w-100 rounded-top" alt="">
-                                                    </a>
-                                                </div>
-                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
-                                                <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                    <a href="/shop/product/${product.id}">
-                                                    <h4>${product.name}</h4>
-                                                    </a>
-                                                    <p style="width: 100%; height: auto; max-height: 50px; overflow: hidden;">${product.description}</p>
-                                                    <div class="d-flex justify-content-between flex-lg-wrap">
-                                                        <p class="text-dark fs-5 fw-bold mb-0">$${product.price} / kg</p>
-                                                        <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                        `;
-                    });
-                    $("#tab-1-products").html(productCards);
-                    $("#paginationF").html('');
-                    for (let i = 1; i <= response.last_page; i++) {
-                        $("#paginationF").append(`<li class="m-1 pe-auto page-item"><a class="rounded page-link" onclick="loadProducts(${i})">${i}</a></li>`);
-                    }
-                },
-            error: function(xhr, status, error) {
-                // Handle errors
-                console.error(error);
-            }
-        });
-    }
     function updatePriceDisplay(value) {
-        // var priceInDollars = (value ).toFixed(2);
         document.getElementById("amount").textContent = "$" + value;
         getProductsPrice(value);
     }
 
+function getProductsPrice(price) {
+    $.ajax({
+        type: "GET",
+        url: "{{route('price.products')}}",
+        data: { price: price },
+        success: function (response) {
+            let products = response.data;
+            let productCards = ''; // Define productCards variable here
+            products.forEach(product => {
+                productCards += `
+                    <div class="col-md-6 col-lg-6 col-xl-4">
+                        <div class="rounded position-relative fruite-item">
+                            <div class="fruite-img">
+                                <a href="/shop/product/${product.id}">
+                                    <img src="{{ asset('') }}${product.image}" class="img-fluid w-100 rounded-top" alt="">
+                                </a>
+                            </div>
+                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                <a href="/shop/product/${product.id}">
+                                    <h4>${product.name}</h4>
+                                </a>
+                                <p style="width: 100%; height: auto; max-height: 50px; overflow: hidden;">${product.description}</p>
+                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                    <p class="text-dark fs-5 fw-bold mb-0">$${product.price} / kg</p>
+                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            $("#tab-1-products").html(productCards);
+            $("#paginationF").html('');
+            for (let i = 1; i <= response.last_page; i++) {
+                $("#paginationF").append(`<li class="m-1 pe-auto page-item"><a class="rounded page-link" onclick="loadProducts(${i})">${i}</a></li>`);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
 
 
     $(document).ready(function () {

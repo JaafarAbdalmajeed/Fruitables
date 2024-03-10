@@ -14,6 +14,7 @@
                     <div class="mb-3">
                         <label for="createInputName" class="form-label">Name</label>
                         <input type="text" class="form-control" id="createInputName" name="name">
+                        <div id="nameValidationWarning" class="text-danger" style="display: none;">Name is required</div>
                     </div>
                     <!-- Add more input fields as needed -->
                     <button type="submit" id="create-submit" class="btn btn-primary">Save changes</button>

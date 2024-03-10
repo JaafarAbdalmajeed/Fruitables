@@ -22,6 +22,15 @@ class CategoryController extends Controller
 
     public function create(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required|unique:categories|regex:/^[a-zA-Z0-9\s]+$/',
+        ], [
+            'name.required' => 'Name is required.',
+            'name.unique' => 'Name already exists.',
+            'name.regex' => 'Name must contain only letters, numbers, and spaces.',
+        ]);
+
         $category = new Category();
         $category->name = $request->name;
         $category->save();
@@ -38,9 +47,18 @@ class CategoryController extends Controller
 
     public function update(Request $request)
     {
+        $request->validate([
+            'name' => 'required|unique:categories|regex:/^[a-zA-Z0-9\s]+$/',
+        ], [
+            'name.required' => 'Name is required.',
+            'name.unique' => 'Name already exists.',
+            'name.regex' => 'Name must contain only letters, numbers, and spaces.',
+        ]);
+
+
         $category = Category::find($request->id);
         $category->name = $request->name;
         $category->save();
-        return response()->json(['message' => 'Category deleted successfully'], 200);
+        return response()->json(['message' => 'Category updated successfully'], 200);
     }
 }

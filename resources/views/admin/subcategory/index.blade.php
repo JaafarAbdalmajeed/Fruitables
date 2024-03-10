@@ -124,11 +124,16 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.message
+                    });
+
                     loadTable();
-                    console.log(response)
                 },
                 error: function(response) {
-                    console.log(response)
+
                 }
             });
         }
@@ -145,7 +150,13 @@
                     name:subcategoryName
                 },
                 dataType: "json",
-                success: function() {
+                success: function(response) {
+                    Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: response.message
+            });
+
                     loadTable();
 
                     $("#editModal").modal("hide");
@@ -153,7 +164,21 @@
                     $("#editInputId").val('');
 
                 },
-                error: function() {
+                error: function(xhr, status, error) {
+                if (xhr.status === 422) {
+                var errors = xhr.responseJSON.errors;
+                var errorMessage = '';
+                $.each(errors, function(index, value) {
+                    errorMessage += value + '<br>';
+                });
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error!',
+                    html: errorMessage
+                });
+            } else {
+                console.error(xhr.responseText);
+            }
 
                     $("#editModal").modal("hide");
                     $("#editInputName").val('');
@@ -222,7 +247,13 @@ $(document).ready(function () {
                 category_id: category,
             },
             dataType: "json",
-            success: function() {
+            success: function(response) {
+                Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: response.message
+            });
+
                 loadTable();
 
                 $("#createModal").modal("hide");
@@ -230,8 +261,21 @@ $(document).ready(function () {
                 $("#listCategoriesEdit").val('');
 
             },
-            error: function() {
-
+            error: function(xhr, status, error) {
+                if (xhr.status === 422) {
+                var errors = xhr.responseJSON.errors;
+                var errorMessage = '';
+                $.each(errors, function(index, value) {
+                    errorMessage += value + '<br>';
+                });
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error!',
+                    html: errorMessage
+                });
+            } else {
+                console.error(xhr.responseText);
+            }
                 $("#createModal").modal("hide");
                 $("#createInputName").val('');
                 $("#listCategoriesEdit").val('');
@@ -277,9 +321,24 @@ $(document).ready(function () {
     })
 
     $(document).on('click', '.btn-delete', function() {
-            var subcategoryId = $(this).data('id');
+    var subcategoryId = $(this).data('id');
+
+    // Show SweetAlert confirmation dialog
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You will not be able to recover this subcategory!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If user confirms, delete the subcategory
             deleteSubcategory(subcategoryId);
-        });
+        }
+    });
+});
 });
 </script>
 @endpush

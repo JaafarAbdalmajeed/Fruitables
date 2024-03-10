@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class SubcategoryController extends Controller
 {
@@ -36,6 +37,17 @@ class SubcategoryController extends Controller
 
     public function create(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/'],
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json(['errors' => $errors], 422);
+        }
+
+
         $subcategory = Subcategory::create([
             'name' => $request->name,
             'category_id' => $request->category_id
@@ -53,6 +65,17 @@ class SubcategoryController extends Controller
 
     public function update(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'regex:/^[a-zA-Z0-9\s]+$/'],
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            return response()->json(['errors' => $errors], 422);
+        }
+
+
         $subcategory = Subcategory::find($request->id);
         $subcategory->name = $request->name;
         $subcategory->save();

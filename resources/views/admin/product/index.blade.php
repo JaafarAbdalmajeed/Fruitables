@@ -66,6 +66,11 @@
                 contentType: false,
                 dataType: "json",
                 success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.message
+                    });
 
                     $('#createModal').modal('hide');
                     loadTable();
@@ -77,7 +82,21 @@
                     $('#listCategories').val('');
                 },
                 error: function (xhr, status, error) {
-                    console.error(error);
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        var errorMessage = '';
+                        $.each(errors, function(index, value) {
+                            errorMessage += value + '<br>';
+                        });
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validation Error!',
+                            html: errorMessage
+                        });
+                    } else {
+                        console.error(xhr.responseText);
+                    }
+
                     let name = $('#name').val('');
                     $('#description').val('');
                     $('#price').val('');
@@ -98,6 +117,12 @@
                 contentType: false,
 
                 success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.message
+                    });
+
                     $('#editModal').modal('hide');
                     loadTable();
                     $('#prductId').val('');
@@ -108,7 +133,21 @@
                     $('#listCategoriesEdit').val('');
                     $('#editImageInput').val('');
                 },
-                error: function(response) {
+                error: function (xhr, status, error) {
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        var errorMessage = '';
+                        $.each(errors, function(index, value) {
+                            errorMessage += value + '<br>';
+                        });
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Validation Error!',
+                            html: errorMessage
+                        });
+                    } else {
+                        console.error(xhr.responseText);
+                    }
                     $('#editModal').modal('hide');
                     $('#prductId').val('');
                     $('#editName').val('');
@@ -134,7 +173,14 @@
                 },
                 dataType: "json",
                 success: function (response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.message
+                    });
+
                     loadTable();
+
                 }
             });
         }
@@ -219,7 +265,20 @@
 
             $(document).on('click', '.delete-btn', function() {
                 var productId = $(this).data('id');
-                deleteProduct(productId);
+                Swal.fire({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this category!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteProduct(productId);
+                }
+            });
+
             });
 
             $('#searchBtn').click(function() {

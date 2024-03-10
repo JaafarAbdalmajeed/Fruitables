@@ -78,7 +78,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary add-item" data-id="{{$product->id}}" ><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                             </div>
                             <div class="col-lg-12">
                                 <nav>
@@ -533,7 +533,7 @@
                                                 <div class="fruite-img">
                                                     <img src="{{ asset('') }}${product.image}" class="img-fluid w-100 rounded-top" alt="">
                                                 </div>
-                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                                <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${product.subcategory.category.name}</div>
                                                 <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                     <h4>${product.name}</h4>
                                                     <p style="width: 100%; height: auto; max-height: 50px; overflow: hidden;">${product.description}</p>
@@ -555,10 +555,33 @@
             }
         });
     }
+    function addItem(id) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{{route('cart.addItem')}}",
+                        data: {
+                            id:id,
+                            quantity:1
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+
+                        dataType: "json",
+                        success: function (response) {
+                        }
+                    });
+    }
+
 
     $(document).ready(function () {
         var categoryName = $("#categoryNameContainer").text().trim();
         products(categoryName)
+        $(document).on('click', '.add-item', function() {
+                            let itemId = $(this).data("id");
+                            addItem(itemId)
+        });
+
     });
 </script>
 @endpush

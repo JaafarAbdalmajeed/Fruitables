@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\ChatController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\OrderController;
@@ -44,7 +45,7 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::post('/admin/user/update', [UserController::class, 'update'])->name('admin.user.update');
     Route::delete('/admin/user/delete', [UserController::class, 'destroy'])->name('admin.user.delete');
 
-    //Order Routes
+    // Order Routes
     Route::get('/admin/order/index', [OrderController::class, 'index'])->name('admin.order.index');
     Route::get('/admin/order/fetch', [OrderController::class, 'fetchData'])->name('order.fetch');
     Route::post('/admin/order/create', [OrderController::class, 'create'])->name('order.create');
@@ -56,6 +57,10 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::get('/admin/order/history/index', [OrderController::class, 'orderHistoryIndex'])->name('order.history.index');
     Route::get('/admin/order/history/fetch', [OrderController::class, 'orderHistoryFetch'])->name('order.history.fetch');
 
+    // Chat
+    Route::get('/chat/{id}', [ChatController::class, 'chatForm']);
+    Route::post('/chat/{id}', [ChatController::class, 'sendMessage']);
+    Route::get('/receive-messages/{id}', [ChatController::class, 'receiveMessages']);
 
 
 });

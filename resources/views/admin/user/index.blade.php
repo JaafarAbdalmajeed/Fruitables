@@ -90,6 +90,13 @@
 
                 dataType: "json",
                 success: function (response) {
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'User Created!',
+                    text: response.message
+                });
+
                     loadTable();
                     $('#createModel').modal('hide');
                     $("#name").val('');
@@ -99,7 +106,21 @@
                     $("#password-repeat").val('');
 
                     resetCreateForm()
+                },
+                error: function (xhr, status, error) {
+                    var errorMessage = "Error occurred while creating the user. Please try again later.";
+
+                    if (xhr.responseJSON && xhr.responseJSON.errors) {
+                        errorMessage = xhr.responseJSON.errors.join('<br>');
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        html: errorMessage
+                    });
                 }
+
             });
         }
 
@@ -113,6 +134,11 @@
 
                 dataType: "json",
                 success: function (response) {
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'User Created!',
+                    text: response.message
+                });
                     loadTable();
                     $('#editModel').modal('hide');
                     resetCreateForm()
@@ -121,6 +147,19 @@
                     $("#editEmail").val('');
                     $("#editRole").val('');
 
+                },
+                error: function (xhr, status, error) {
+                    var errorMessage = "Error occurred while creating the user. Please try again later.";
+
+                    if (xhr.responseJSON && xhr.responseJSON.errors) {
+                        errorMessage = xhr.responseJSON.errors.join('<br>');
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        html: errorMessage
+                    });
                 }
             });
         }
@@ -128,21 +167,32 @@
         function deleteUser(id) {
             $.ajax({
                 type: "DELETE",
-                url: "{{route('admin.user.delete')}}",
+                url: "{{ route('admin.user.delete') }}",
                 data: {
-                    id:id,
+                    id: id,
                 },
                 headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-
                 dataType: "json",
                 success: function (response) {
-                    loadTable()
+                    loadTable();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.message
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'An error occurred while deleting the user.'
+                    });
                 }
             });
         }
-
         function resetCreateForm() {
             $('#name').val('');
             $('#description').val('');
@@ -187,11 +237,26 @@
                 $("#editEmail").val(email);
                 $("#editRole").val(role);
             });
-
             $(document).on("click", "#btn-delete" ,function() {
                 let id = $(this).data("id");
-                deleteUser(id);
-            })
+                alert(id)
+
+                // Show SweetAlert confirmation dialog
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: 'You will not be able to recover this user!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                        deleteUser(id);
+
+                });
+            });
+
+
 
             $("#edit-submit").click(function(event){
                 event.preventDefault();

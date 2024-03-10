@@ -13,8 +13,10 @@ class IndexController extends Controller
     public function products(Request $request)
     {
         $pageSize = $request->input('pageSize', 8); // Get the page size from the request or default to 8
-        $products = Product::paginate($pageSize); // Fetch products with pagination
-        return response()->json($products);
+        $products = Product::with('subcategory')->paginate($pageSize); // Fetch products with pagination and subcategory
+        // Eager load category for each subcategory
+        $products->load('subcategory.category');
+            return response()->json($products);
     }
     public function vegetables(Request $request)
     {

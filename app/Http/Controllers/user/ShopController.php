@@ -25,12 +25,14 @@ class ShopController extends Controller
         $products = Product::where('subcategory_id', $category->id)->get();
         return response()->json($products);
     }
-
     public function productsPrice(Request $request)
     {
-        $price = $request->price;
+        $price = $request->input('price');
+        $pageSize = $request->input('pageSize', 8); // Assuming you have a default page size
 
-        $products = Product::where('price','<=', $price)->paginate($pageSize);
+        $products = Product::where('price', '<=', $price)->paginate($pageSize);
+
         return response()->json($products);
     }
+
 }

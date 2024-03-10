@@ -59,17 +59,25 @@
             },
             success: function(response) {
                 loadTable();
-                console.log(response);
+                Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: response.message
+                    });
+
             },
             error: function(xhr, textStatus, errorThrown) {
-                console.error(xhr.responseText);
+                Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Error'
+                    });
+
             }
         });
     }
 
     function editCategory(categoryId, categoryName) {
-        alert(categoryId)
-        alert(categoryName)
         $.ajax({
             type: "PUT",
             url: "{{ route('category.update') }}",
@@ -82,12 +90,39 @@
             },
             dataType: "json",
             success: function(response) {
-                loadTable();
-                console.log(response);
-            },
-            error: function(xhr, textStatus, errorThrown) {
-                console.error(xhr.responseText);
-            }
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: response.message
+                    });
+
+                    $("#editModal").modal("hide");
+
+                    loadTable();
+                    $('#createInputName').val('');
+
+                },
+                error: function(xhr) {
+                    if(xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        var errorMessage = '';
+                        $.each(errors, function(key, value) {
+                            errorMessage += value[0] + '<br>';
+                        });
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            html: errorMessage
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred: ' + xhr.responseText
+                        });
+                    }
+                    $("#editModal").modal("hide");
+                }
         });
     }
 
@@ -110,14 +145,12 @@
                     tableRows += "</tr>";
                 });
                 $("table tbody").html(tableRows);
-                $("#createModal").modal("hide");
             }
         });
     }
 
     $(document).ready(function() {
         loadTable();
-
 
         $(document).on('click', '.btn-edit', function() {
             var categoryId = $(this).data('id');
@@ -127,9 +160,23 @@
             $('#editModal').modal('show');
         });
 
+        $(document).on('submit', '#editForm', function(event) {
+            event.preventDefault();
+            var categoryId = $("#editInputId").val();
+            var categoryName = $("#editInputName").val();
+            editCategory(categoryId, categoryName);
+        });
+
         $(document).on('submit', '#createForm', function(event) {
             event.preventDefault();
             var category = $("#createInputName").val();
+            if (!category) {
+                $('#nameValidationWarning').show();
+            } else {
+                $('#nameValidationWarning').hide();
+            }
+
+
             $.ajax({
                 type: "POST",
                 url: "{{route('category.create')}}",
@@ -141,29 +188,59 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: response.message
+                    });
+
+                    $("#createModal").modal("hide");
                     loadTable();
                     $('#createInputName').val('');
-                    console.log(response);
-                },
-                error: function(xhr, textStatus, errorThrown) {
-                    console.error(xhr.responseText);
-                    $('#createInputName').val('');
 
+                },
+                error: function(xhr) {
+                    if(xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        var errorMessage = '';
+                        $.each(errors, function(key, value) {
+                            errorMessage += value[0] + '<br>';
+                        });
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            html: errorMessage
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred: ' + xhr.responseText
+                        });
+                    }
                 }
+
             });
         });
 
         $(document).on('click', '.btn-delete', function() {
             var categoryId = $(this).data('id');
-            deleteCategory(categoryId);
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this category!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    deleteCategory(categoryId);
+                }
+            });
+
         });
 
-        $(document).on('submit', '#editForm', function(event) {
-            event.preventDefault();
-            var categoryId = $("#editInputId").val();
-            var categoryName = $("#editInputName").val();
-            editCategory(categoryId, categoryName);
-        });
     });
 </script>
 @endpush

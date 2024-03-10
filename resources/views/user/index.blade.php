@@ -54,12 +54,12 @@
 
 
         <!-- Banner Section Start-->
-        @include('user.banner')
+        {{-- @include('user.banner') --}}
         <!-- Banner Section End -->
 
 
         <!-- Bestsaler Product Start -->
-        @include('user.bestsaler')
+        {{-- @include('user.bestsaler') --}}
         <!-- Bestsaler Product End -->
 
 
@@ -132,7 +132,7 @@
                                                     <img src="{{ asset('') }}${product.image}" class="img-fluid w-100 rounded-top" alt="">
                                                 </a>
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">${product.subcategory.category.name}</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <a href="/shop/product/${product.id}">
                                                     <h4>${product.name}</h4>
@@ -226,7 +226,7 @@
                                                     <img src="{{ asset('') }}${fruit.image}" class="img-fluid w-100 rounded-top" alt="">
                                                 </a>
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Vegetables</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Fruits</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <a href="/shop/product/${fruit.id}">
                                                     <h4>${fruit.name}</h4>
@@ -273,7 +273,7 @@
                                                     <img src="{{ asset('') }}${breat.image}" class="img-fluid w-100 rounded-top" alt="">
                                                 </a>
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Vegetables</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Breats</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <a href="/shop/product/${breat.id}">
                                                     <h4>${breat.name}</h4>
@@ -320,7 +320,7 @@
                                                     <img src="{{ asset('') }}${meat.image}" class="img-fluid w-100 rounded-top" alt="">
                                                 </a>
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Vegetables</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Meats</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <a href="/shop/product/${meat.id}">
                                                     <h4>${meat.name}</h4>
